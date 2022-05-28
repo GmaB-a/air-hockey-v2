@@ -18,7 +18,7 @@ namespace air_hockey
         private Player player2;
         public float lineSpeed = 8f;
 
-        private Ball ball = new Ball(5f);
+        private Ball ball = new Ball(10f);
         private Random rnd = new Random();
         
         Clock coinClock = new Clock();
@@ -170,7 +170,7 @@ namespace air_hockey
         private void ChangeDirectionAndLastStriked(Player player)
         {
             ball.moveDirection.X *= -1f;
-            ball.lastStriked = player;
+            ball.lastStrikedPlayer = player;
         }
 
         private void CoinLogic()
@@ -198,15 +198,21 @@ namespace air_hockey
         }
 
         private void CheckIfTouchedCoin() 
-        { 
-            if((ball.Position.X >= coin.Position.X) && (ball.Position.X <= coin.Position.X + coin.Radius) && isCoinOnScreen)
+        {
+            if (ball.TextureRect.Intersects(coin.TextureRect))
+            {
+                isCoinOnScreen = false;
+                ball.lastStrikedPlayer.score++;
+            }
+
+            /*if((ball.Position.X >= coin.Position.X) && (ball.Position.X <= coin.Position.X + coin.Radius) && isCoinOnScreen)
             {
                 if((ball.Position.Y >= coin.Position.Y) && (ball.Position.Y <= coin.Position.Y + coin.Radius))
                 {
                     isCoinOnScreen = false;
                     ball.lastStriked.score++;
                 }
-            }
+            } */
         }
     }
 }

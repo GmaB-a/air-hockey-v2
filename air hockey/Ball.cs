@@ -12,7 +12,7 @@ namespace air_hockey
         public Vector2f spawnPosition;
         public Vector2f moveDirection;
 
-        public Player lastStriked;
+        public Player lastStrikedPlayer;
         public Ball(float r)
         {
             Radius = r;
