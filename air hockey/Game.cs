@@ -16,10 +16,15 @@ namespace air_hockey
 
         private Player player1;
         private Player player2;
+        public float lineSpeed = 0.2f;
 
         private Ball ball = new Ball(5f);
         private Random rnd = new Random();
-        public float lineSpeed = 0.2f;
+        
+        Clock coinClock = new Clock();
+        CircleShape coin;
+        bool isCoinOnScreen = false;
+
         public void Play()
         {
             window.Closed += WindowClosed;
@@ -30,17 +35,24 @@ namespace air_hockey
             ball.spawnPosition = new Vector2f(window.Size.X / 2, window.Size.Y / 2);
             ball.Position = ball.spawnPosition;
 
+            coin = new CircleShape();
+            coin.Radius = 15;
+            coin.FillColor = Color.Yellow;
+
             while (window.IsOpen)
             {
                 window.DispatchEvents();
                 window.Clear();
 
                 GetInput();
-                BallLogic();
                 DrawLines();
-                //DrawScores();
-                CoinLogic();
 
+                BallLogic();
+
+                CoinLogic();
+                if(isCoinOnScreen) window.Draw(coin);
+
+                //DrawScores();
                 window.Display();
             }
         }
@@ -163,7 +175,38 @@ namespace air_hockey
 
         private void CoinLogic()
         {
+            float elapsed = coinClock.ElapsedTime.AsSeconds();
+            if(elapsed >= 2f && !isCoinOnScreen)
+            {
+                ChangeCoinLocation();
+                isCoinOnScreen = true;
+                elapsed = 0f;
+                coinClock.Restart();
+            }
+            if (!ball.isMoving)
+            {
+                ChangeCoinLocation();
+                isCoinOnScreen = false;
+                elapsed = 0f;
+                coinClock.Restart();
+            }
+        }
 
+        private void ChangeCoinLocation()
+        {
+            coin.Position = new Vector2f(rnd.Next(0, (int)window.Size.X), rnd.Next(rnd.Next(0, (int)window.Size.Y)));
+        }
+
+        private void CheckIfTouchedCoin() 
+        { 
+            if((ball.Position.X >= coin.Position.X) && (ball.Position.X <= coin.Position.X + coin.Radius * 2) && isCoinOnScreen)
+            {
+                if((ball.Position.Y >= coin.Position.Y) && (ball.Position.Y <= coin.Position.Y + coin.Radius * 2))
+                {
+                    isCoinOnScreen = false;
+                    ball.lastStriked.score++;
+                }
+            }
         }
     }
 }
