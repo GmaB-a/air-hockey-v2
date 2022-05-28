@@ -163,7 +163,7 @@ namespace air_hockey
 
         private bool IsOnRightX(Player player, int operator_func)
         {
-            if(operator_func == 1) return (player.line.Position.X < ball.Position.X + ball.Radius) && (player.line.Position.X > ball.Position.X);//(player.line.Position.X > ball.Position.X + ball.Radius) && (player.line.Position.X < ball.Position.X);
+            if(operator_func == 1) return (player.line.Position.X < ball.Position.X + ball.Radius) && (player.line.Position.X > ball.Position.X);
             return (player.line.Position.X < ball.Position.X + ball.Radius) && (player.line.Position.X > ball.Position.X);
         }
 
@@ -199,9 +199,9 @@ namespace air_hockey
 
         private void CheckIfTouchedCoin() 
         { 
-            if((ball.Position.X >= coin.Position.X) && (ball.Position.X <= coin.Position.X + coin.Radius * 2) && isCoinOnScreen)
+            if((ball.Position.X >= coin.Position.X) && (ball.Position.X <= coin.Position.X + coin.Radius) && isCoinOnScreen)
             {
-                if((ball.Position.Y >= coin.Position.Y) && (ball.Position.Y <= coin.Position.Y + coin.Radius * 2))
+                if((ball.Position.Y >= coin.Position.Y) && (ball.Position.Y <= coin.Position.Y + coin.Radius))
                 {
                     isCoinOnScreen = false;
                     ball.lastStriked.score++;
