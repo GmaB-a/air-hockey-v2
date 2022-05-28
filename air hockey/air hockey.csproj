@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="Ball.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Line.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

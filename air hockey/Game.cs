@@ -16,7 +16,7 @@ namespace air_hockey
 
         private Player player1;
         private Player player2;
-        public float lineSpeed = 0.2f;
+        public float lineSpeed = 8f;
 
         private Ball ball = new Ball(5f);
         private Random rnd = new Random();
@@ -28,6 +28,7 @@ namespace air_hockey
         public void Play()
         {
             window.Closed += WindowClosed;
+            window.SetFramerateLimit(60);
 
             player1 = new Player(window, new Vector2f(50, window.Size.Y / 2 - 25));
             player2 = new Player(window, new Vector2f(window.Size.X - 50, window.Size.Y / 2 - 25));
