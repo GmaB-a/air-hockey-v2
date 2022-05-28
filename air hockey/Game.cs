@@ -164,7 +164,6 @@ namespace air_hockey
 
         private bool IsOnRightX(Player player, int operator_func)
         {
-            if(operator_func == 1) return (player.line.Position.X < ball.Position.X + ball.Radius) && (player.line.Position.X > ball.Position.X);
             return (player.line.Position.X < ball.Position.X + ball.Radius) && (player.line.Position.X > ball.Position.X);
         }
 
