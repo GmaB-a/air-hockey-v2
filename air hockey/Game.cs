@@ -144,7 +144,7 @@ namespace air_hockey
         {
             if (IsOnRightY(player1))
             {
-                if (IsOnRightX(player1, 1))
+                if (IsOnRightX(player1))
                 {
                     ChangeDirectionAndLastStriked(player1);
                 }
@@ -152,7 +152,7 @@ namespace air_hockey
 
             if (IsOnRightY(player2))
             {
-                if (IsOnRightX(player2, 2))
+                if (IsOnRightX(player2))
                 {
                     ChangeDirectionAndLastStriked(player2);
                 }
@@ -162,7 +162,7 @@ namespace air_hockey
         private bool IsOnRightY(Player player)
             => (ball.Position.Y > player.line.Position.Y) && (ball.Position.Y < player.line.Position.Y + player.line.Size.Y);
 
-        private bool IsOnRightX(Player player, int operator_func)
+        private bool IsOnRightX(Player player)
         {
             return (player.line.Position.X < ball.Position.X + ball.Radius) && (player.line.Position.X > ball.Position.X);
         }
